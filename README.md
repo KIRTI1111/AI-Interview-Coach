@@ -1,5 +1,7 @@
 # AI Interview Coach
 
+**Live application:** [ai-interview-coach-gray-pi.vercel.app](https://ai-interview-coach-gray-pi.vercel.app)
+
 A privacy-minded Next.js application that extracts a resume and job description, then provides two independent local-AI conversations:
 
 - Resume and job-match coaching grounded in the supplied documents
