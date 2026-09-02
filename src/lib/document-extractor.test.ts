@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { DocumentValidationError, extractDocument, MAX_FILE_BYTES } from "@/lib/document-extractor";
+import { MAX_FILE_MEGABYTES } from "@/lib/document-limits";
 
 describe("secure document extraction", () => {
   it("extracts and normalizes a valid TXT document", async () => {
@@ -34,6 +35,6 @@ describe("secure document extraction", () => {
   it("rejects files over the byte limit before parsing", async () => {
     const file = new File([new Uint8Array(MAX_FILE_BYTES + 1)], "large.txt", { type: "text/plain" });
     await expect(extractDocument(file)).rejects.toBeInstanceOf(DocumentValidationError);
-    await expect(extractDocument(file)).rejects.toThrow("5 MB limit");
+    await expect(extractDocument(file)).rejects.toThrow(`${MAX_FILE_MEGABYTES} MB deployment-safe limit`);
   });
 });

@@ -1,0 +1,2 @@
+export const MAX_FILE_MEGABYTES = 3;
+export const MAX_FILE_BYTES = MAX_FILE_MEGABYTES * 1024 * 1024;

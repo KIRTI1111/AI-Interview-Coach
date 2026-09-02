@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { CoachWorkspace } from "@/components/coach-workspace";
+import { MAX_FILE_BYTES, MAX_FILE_MEGABYTES } from "@/lib/document-limits";
 
 type ExtractedDocument = { text: string; characters: number; filename: string; format: string };
 type UploadState = { document?: ExtractedDocument; error?: string; loading: boolean };
@@ -11,8 +12,18 @@ async function extractFile(file: File): Promise<ExtractedDocument> {
   const formData = new FormData();
   formData.set("file", file);
   const response = await fetch("/api/documents/extract", { method: "POST", body: formData });
-  const result = (await response.json()) as { document?: ExtractedDocument; error?: string };
-  if (!response.ok || !result.document) throw new Error(result.error ?? "The document could not be processed.");
+  const text = await response.text();
+  let result: { document?: ExtractedDocument; error?: string } = {};
+  if (text) {
+    try { result = JSON.parse(text) as typeof result; } catch { /* A platform error page is not application JSON. */ }
+  }
+  if (!response.ok) {
+    const fallback = response.status === 413
+      ? `The upload exceeds the ${MAX_FILE_MEGABYTES} MB deployment-safe limit.`
+      : `The upload service returned an incomplete response (${response.status}). Please try again.`;
+    throw new Error(result.error ?? fallback);
+  }
+  if (!result.document) throw new Error(result.error ?? "The upload service returned no document. Please try again.");
   return result.document;
 }
 
@@ -27,6 +38,10 @@ export function DocumentWorkspace() {
   async function handleFile(file: File | undefined, target: "resume" | "job") {
     if (!file) return;
     const setter = target === "resume" ? setResume : setJobFile;
+    if (file.size > MAX_FILE_BYTES) {
+      setter({ loading: false, error: `Choose a file smaller than ${MAX_FILE_MEGABYTES} MB for deployment-safe processing.` });
+      return;
+    }
     setter({ loading: true });
     try {
       const document = await extractFile(file);
@@ -146,7 +161,7 @@ function FilePicker({ id, inputRef, state, onFile, onClear, compact = false }: {
       <label htmlFor={id} className={`flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 text-center transition hover:border-indigo-400 hover:bg-indigo-50/50 ${compact ? "min-h-28" : "min-h-48"}`}>
         <span className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-xl text-indigo-700">↑</span>
         <span className="text-sm font-semibold text-slate-800">{state.loading ? "Reading document…" : "Choose a PDF, TXT, or DOCX"}</span>
-        <span className="mt-1 text-xs text-slate-500">Maximum 5 MB</span>
+        <span className="mt-1 text-xs text-slate-500">Maximum {MAX_FILE_MEGABYTES} MB</span>
       </label>
       <input ref={inputRef} id={id} type="file" className="sr-only" accept=".pdf,.txt,.docx,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" disabled={state.loading} onChange={(event) => onFile(event.target.files?.[0])} />
       {state.error && <p role="alert" className="mt-3 rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700">{state.error}</p>}

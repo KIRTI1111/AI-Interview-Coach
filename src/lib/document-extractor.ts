@@ -2,8 +2,9 @@ import "server-only";
 
 import mammoth from "mammoth";
 import { PDFParse } from "pdf-parse";
+import { MAX_FILE_BYTES, MAX_FILE_MEGABYTES } from "@/lib/document-limits";
 
-export const MAX_FILE_BYTES = 5 * 1024 * 1024;
+export { MAX_FILE_BYTES } from "@/lib/document-limits";
 export const MAX_EXTRACTED_CHARACTERS = 100_000;
 
 const allowedExtensions = new Set(["pdf", "txt", "docx"]);
@@ -37,7 +38,7 @@ export async function extractDocument(file: File) {
   if (!allowedExtensions.has(extension)) throw new DocumentValidationError("Use a PDF, TXT, or DOCX file.");
   if (!allowedMimeTypes.has(file.type || "application/octet-stream")) throw new DocumentValidationError("The file type does not match an allowed document format.");
   if (file.size === 0) throw new DocumentValidationError("The selected file is empty.");
-  if (file.size > MAX_FILE_BYTES) throw new DocumentValidationError("The file is larger than the 5 MB limit.");
+  if (file.size > MAX_FILE_BYTES) throw new DocumentValidationError(`The file is larger than the ${MAX_FILE_MEGABYTES} MB deployment-safe limit.`);
 
   const bytes = new Uint8Array(await file.arrayBuffer());
   let text = "";
