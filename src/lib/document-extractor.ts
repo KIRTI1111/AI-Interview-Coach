@@ -1,7 +1,5 @@
 import "server-only";
 
-import mammoth from "mammoth";
-import { PDFParse } from "pdf-parse";
 import { MAX_FILE_BYTES, MAX_FILE_MEGABYTES } from "@/lib/document-limits";
 
 export { MAX_FILE_BYTES } from "@/lib/document-limits";
@@ -45,6 +43,7 @@ export async function extractDocument(file: File) {
   try {
     if (extension === "pdf") {
       if (!hasPdfSignature(bytes)) throw new DocumentValidationError("This file does not have a valid PDF signature.");
+      const { PDFParse } = await import("pdf-parse");
       const parser = new PDFParse({ data: bytes });
       try {
         text = (await parser.getText()).text;
@@ -53,6 +52,7 @@ export async function extractDocument(file: File) {
       }
     } else if (extension === "docx") {
       if (!hasZipSignature(bytes)) throw new DocumentValidationError("This file does not have a valid DOCX signature.");
+      const { default: mammoth } = await import("mammoth");
       text = (await mammoth.extractRawText({ buffer: Buffer.from(bytes) })).value;
     } else {
       if (bytes.includes(0)) throw new DocumentValidationError("This TXT file appears to contain binary data.");
