@@ -1,0 +1,54 @@
+ANANYA SHARMA
+Java Backend Developer
+Bengaluru, India | ananya.sharma@example.com | +91 90000 00000
+
+PROFESSIONAL SUMMARY
+Backend developer with 3 years of experience building Java and Spring Boot applications. Experienced in REST API development, relational databases, unit testing, and Agile delivery. Interested in developing reliable, maintainable services for high-traffic products.
+
+TECHNICAL SKILLS
+- Languages: Java 17, SQL, basic JavaScript
+- Frameworks: Spring Boot, Spring MVC, Spring Data JPA, Hibernate
+- APIs: REST, JSON, OpenAPI/Swagger
+- Databases: PostgreSQL, MySQL
+- Testing: JUnit 5, Mockito, Postman
+- Tools: Git, Maven, Docker, IntelliJ IDEA, Jira
+- Concepts: Object-oriented programming, data structures, design patterns, Agile/Scrum
+
+PROFESSIONAL EXPERIENCE
+
+Software Engineer | BrightCart Technologies | July 2023 - Present
+- Developed and maintained Spring Boot REST APIs for order and inventory workflows.
+- Reduced average API response time by 28% by optimizing database queries and adding indexes.
+- Added request validation and centralized exception handling across six backend services.
+- Wrote JUnit and Mockito tests and increased service-layer test coverage from 55% to 78%.
+- Created Docker configurations for consistent development and testing environments.
+- Participated in code reviews, sprint planning, and production issue investigation.
+
+Associate Software Engineer | NovaSoft Solutions | August 2021 - June 2023
+- Built Java modules for an internal customer-support application.
+- Implemented CRUD operations using Spring MVC, Hibernate, and MySQL.
+- Documented REST endpoints with Swagger and tested integrations using Postman.
+- Fixed defects, reviewed application logs, and worked with QA engineers during releases.
+
+PROJECTS
+
+Order Management API
+- Created a Spring Boot service for customers, products, and orders.
+- Used PostgreSQL, Spring Data JPA, Bean Validation, and JWT-based authentication.
+- Added pagination, filtering, error handling, and unit tests.
+
+Employee Leave Portal
+- Built a Java and MySQL application for employee leave requests and approvals.
+- Applied layered architecture and repository and service patterns.
+
+EDUCATION
+Bachelor of Technology in Computer Science
+Visvesvaraya Technological University | 2021
+
+CERTIFICATIONS
+- Oracle Certified Professional: Java SE 11 Developer
+- Docker Foundations
+
+ADDITIONAL INFORMATION
+- Strong written and verbal communication
+- Notice period: 30 days

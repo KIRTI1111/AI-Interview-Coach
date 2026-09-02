@@ -1,0 +1,38 @@
+JOB TITLE
+Senior Java Backend Developer
+
+LOCATION
+Bengaluru, India - Hybrid
+
+ABOUT THE ROLE
+We are seeking a Java Backend Developer to join our payments engineering team. The engineer will design, build, and operate secure, scalable services used by our ecommerce platform. The successful candidate will collaborate with product, QA, DevOps, and other engineering teams.
+
+RESPONSIBILITIES
+- Design and implement backend services using Java and Spring Boot.
+- Build well-documented REST APIs and event-driven integrations.
+- Write maintainable code with unit and integration tests.
+- Review code and contribute to architecture and technical-design discussions.
+- Diagnose production issues using logs, metrics, and distributed tracing.
+- Improve performance, reliability, and security of backend services.
+- Work in an Agile team and mentor junior developers.
+
+REQUIRED QUALIFICATIONS
+- 4 or more years of professional Java development experience.
+- Strong knowledge of Java 17, Spring Boot, Spring MVC, and Spring Data JPA.
+- Strong SQL skills and experience with PostgreSQL.
+- Experience designing REST APIs and microservices.
+- Experience with JUnit, Mockito, Maven, Git, and Docker.
+- Understanding of object-oriented design, common design patterns, and data structures.
+- Experience implementing authentication and authorization.
+- Good problem-solving and communication skills.
+
+PREFERRED QUALIFICATIONS
+- Experience with Apache Kafka or another message broker.
+- Experience deploying services to AWS.
+- Familiarity with Kubernetes and CI/CD pipelines.
+- Experience with Redis caching.
+- Knowledge of observability tools such as Prometheus, Grafana, or OpenTelemetry.
+- Previous work with payment systems or other high-volume transactional platforms.
+
+SUCCESS IN THIS ROLE
+During the first six months, the engineer will deliver production-ready service improvements, strengthen automated testing, participate in on-call support, and help improve the team's engineering practices.
