@@ -48,7 +48,7 @@ Anonymous authentication-boundary browser tests run without setup. Signed-in coa
 
 ## Deployment rate limiting
 
-Chat requests, document extraction, and AI health checks are rate limited. Local development uses an in-memory limiter with no setup. Before deploying to Vercel, create an Upstash Redis database and add `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and a long random `RATE_LIMIT_ID_SALT` to the Vercel project's server-only environment variables. This switches the same application code to a shared limiter that works across serverless instances.
+Chat requests, document extraction, and AI health checks are rate limited. Local development uses an in-memory limiter with no setup. Before public use on Vercel, connect an Upstash Redis database through Vercel Marketplace. The app accepts either `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` or the integration aliases `KV_REST_API_URL` / `KV_REST_API_TOKEN`. An optional long random `RATE_LIMIT_ID_SALT` hashes client identifiers; when it is omitted, the existing server-only Clerk secret is used as the hash key. Connecting Redis switches the same application code to a shared limiter that works across serverless instances.
 
 ## Vercel preview with Fireworks AI
 

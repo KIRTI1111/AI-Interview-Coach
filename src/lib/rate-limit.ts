@@ -24,8 +24,8 @@ const configs: Record<RateLimitScope, LimitConfig> = {
 };
 
 const memoryWindows = new Map<string, { count: number; reset: number }>();
-const redisUrl = process.env.UPSTASH_REDIS_REST_URL?.trim();
-const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+const redisUrl = (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL)?.trim();
+const redisToken = (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN)?.trim();
 const redis = redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null;
 const distributedLimiters = redis
   ? Object.fromEntries(
@@ -73,7 +73,7 @@ export function privateClientIdentifier(request: Request): string {
 }
 
 function privateIdentifier(value: string): string {
-  const salt = process.env.RATE_LIMIT_ID_SALT?.trim() || "local-development-only";
+  const salt = process.env.RATE_LIMIT_ID_SALT?.trim() || process.env.CLERK_SECRET_KEY?.trim() || "local-development-only";
   return createHmac("sha256", salt).update(value).digest("hex");
 }
 
